@@ -15,20 +15,24 @@ public class EmployeeWage {
 
 	/**
 	 * UC-1 to check if employee is present or absent
+	 * UC-3 to check if Employee is part time and calculate Wage
 	 */
 	private static void checkPresent() {
 		
 		int empHrs=0;
-		int empCheck = (int) (Math.random()*10)%2;
+		int empCheck = (int)Math.floor(Math.random()*10) % 3;
 		
 		if (empCheck == IS_FULL_TIME) {
 			System.out.println("Employee is Present");
 			empHrs=8;
 		}
+		else if (empCheck == IS_PART_TIME ){
+			System.out.println("Employee is Part Time");
+			empHrs=4;
+		}	
 		else {
 			System.out.println("Employee is Absent");
-			empHrs=0;
-		}	
+		}
 		
 		EmpWage(empHrs);
 	}
