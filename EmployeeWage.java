@@ -2,57 +2,59 @@ package com;
 
 public class EmployeeWage {
 
-	public static final int IS_FULL_TIME=1;
-	public static final int IS_PART_TIME=2;
-	public static final int EMP_RATE_PER_HOUR=20;
-	public static final int NUM_OF_WORK_DAYS=20;
-	public static final int MAX_HRS_IN_MONTH=100;
-	
-	static int empHrs=0;
-	static int totalEmpWage = 0;
-	static int totalWorkingHrs=0; 
-	static int totalWorkdays=0;
-	
-	
-	public static void main(String[] args) {
-		
-		System.out.println("Welcome to Employee wage computation program");
-		
-		
-		calculateWage();
-	}
+    /**
+     * calculateTotalWage method gets value from main method and calculate the
+     * employee wage
+     *
+     * @param company
+     * @param wageRatePerHour
+     * @param maxWorkingDays
+     * @param maxWorkingHours
+     *
+     */
+    private static void calculateTotalWage(String companyName, int wageRatePerHour, int maxWorkingDays, int maxWorkingHours) {
+        //constant variable
+        final int PART_TIME = 1;
+        final int FULL_TIME = 2;
 
-	/**
-	 * UC-6 Code refactor and use class method and class variable
-	 */
-	private static void calculateWage() {
-		
+        // instance variable
+        int totalWage = 0;
+        int workingHours = 0;
+        int totalWorkingHours = 0;
 
-		while (totalWorkingHrs <= MAX_HRS_IN_MONTH && 
-				totalWorkdays < NUM_OF_WORK_DAYS){
-			
-			totalWorkdays++;
-			int empcheck = (int) Math.floor(Math.random()*10)%3;
-			switch (empcheck){
-				
-				case(IS_FULL_TIME):
-					empHrs=8;
-					break;		
-			
-				case(IS_PART_TIME):
-					empHrs=4;
-					break;
-			
-				default:
-					empHrs=0;
-			}
-			totalWorkingHrs += empHrs;
-			int empWage = empHrs * EMP_RATE_PER_HOUR;
-			totalEmpWage += empWage;
-		}
-	
-		System.out.println("Total working hours : " + totalWorkingHrs);
-		System.out.println("No. of working days: " + totalWorkdays);
-		System.out.println("Total Emp Wage for month: " + totalEmpWage);
-	}	
+        // for loop checking 
+        for (int day = 1; day <= maxWorkingDays && totalWorkingHours <= maxWorkingHours; day++) {
+            totalWorkingHours += workingHours;
+            int employeeType = (int) (Math.random() * 100) % 3;
+            switch (employeeType) {
+                case FULL_TIME:
+                    workingHours = 8;
+                    break;
+                case PART_TIME:
+                    workingHours = 4;
+                    break;
+                default:
+                    workingHours = 0;
+            }
+            int Employeewage = workingHours * wageRatePerHour;
+            totalWage += Employeewage;
+
+        }
+
+        System.out.println("Total wage for a month of " + companyName + " employee is " + totalWage + "\n");
+    }
+
+    /**
+     *
+     * This is the main method Displaying Welcome to Employee Wage Computation
+     * passing company name wage rate per hour into calculate total wage method
+     * for employee wage
+     *
+     * @param args
+     */
+    public static void main(String args[]) {
+        calculateTotalWage("RelianceMart", 30, 15, 200);
+        calculateTotalWage("BigBazar", 20, 20, 100);
+        calculateTotalWage("Dmart", 15, 25, 200);
+    }
 }
