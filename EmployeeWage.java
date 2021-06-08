@@ -2,59 +2,77 @@ package com;
 
 public class EmployeeWage {
 
-    /**
-     * calculateTotalWage method gets value from main method and calculate the
-     * employee wage
-     *
-     * @param company
-     * @param wageRatePerHour
-     * @param maxWorkingDays
-     * @param maxWorkingHours
-     *
-     */
-    private static void calculateTotalWage(String companyName, int wageRatePerHour, int maxWorkingDays, int maxWorkingHours) {
-        //constant variable
-        final int PART_TIME = 1;
-        final int FULL_TIME = 2;
+	public static final int IS_PART_TIME = 1;
+	public static final int IS_FULL_TIME = 2;
 
-        // instance variable
-        int totalWage = 0;
-        int workingHours = 0;
-        int totalWorkingHours = 0;
+	private final String company;
+	private final int empRatePerHour;
+	private final int numOfWorkingDays;
+	private final int maxHoursPerMonth;
+	private int totalEmpWage;
+	
+	/**
+	 * UC-8 Instance variable created using class constructor
+	 * 
+	 * @param company
+	 * @param empRatePerHour
+	 * @param numOfWorkingDays
+	 * @param maxHoursPerMonth
+	 */
 
-        // for loop checking 
-        for (int day = 1; day <= maxWorkingDays && totalWorkingHours <= maxWorkingHours; day++) {
-            totalWorkingHours += workingHours;
-            int employeeType = (int) (Math.random() * 100) % 3;
-            switch (employeeType) {
-                case FULL_TIME:
-                    workingHours = 8;
-                    break;
-                case PART_TIME:
-                    workingHours = 4;
-                    break;
-                default:
-                    workingHours = 0;
-            }
-            int Employeewage = workingHours * wageRatePerHour;
-            totalWage += Employeewage;
+	public EmployeeWage(String company, int empRatePerHour, int numOfWorkingDays, int maxHoursPerMonth) {
+		this.company = company;
+		this.empRatePerHour = empRatePerHour;
+		this.numOfWorkingDays = numOfWorkingDays;
+		this.maxHoursPerMonth = maxHoursPerMonth;
+	}
 
-        }
+	public void computeEmpWage() {
+		int empHrs = 0;
+		int totalWorkingDays = 0;
+		int totalEmpHrs = 0;
+		while (totalEmpHrs <= maxHoursPerMonth && totalWorkingDays < numOfWorkingDays) {
+			totalWorkingDays++;
+			int empCheck = (int) Math.floor(Math.random() * 10) % 3;
+			switch (empCheck) {
+			case IS_PART_TIME:
+				System.out.println("Employee is Present");
+				empHrs = 4;
+				break;
+			case IS_FULL_TIME:
+				System.out.println("Employee is Present");
+				empHrs = 8;
+				break;
+			default:
+				System.out.println("Employee is Absent");
+				empHrs = 0;
+			}
+			totalEmpHrs += empHrs;
+			System.out.println("Day : " + totalWorkingDays + "Emp Hr: " + empHrs);
 
-        System.out.println("Total wage for a month of " + companyName + " employee is " + totalWage + "\n");
-    }
+		}
+		totalEmpWage = totalEmpHrs * empRatePerHour;
+	}
 
-    /**
-     *
-     * This is the main method Displaying Welcome to Employee Wage Computation
-     * passing company name wage rate per hour into calculate total wage method
-     * for employee wage
-     *
-     * @param args
-     */
-    public static void main(String args[]) {
-        calculateTotalWage("RelianceMart", 30, 15, 200);
-        calculateTotalWage("BigBazar", 20, 20, 100);
-        calculateTotalWage("Dmart", 15, 25, 200);
-    }
+	@Override
+	public String toString() {
+		return "Total Emp Wage for Company : " + company + " is: " + totalEmpWage;
+	}
+	
+	/**
+	 * class objects are created by passing parameters to class constructor
+	 * and computed wage for different companies
+	 * @param args
+	 */
+	
+	public static void main(String[] args) {
+		EmployeeWage dMart = new EmployeeWage("Dmart", 20, 2, 10);
+		EmployeeWage relience = new EmployeeWage("Reliance", 10, 4, 20);
+		dMart.computeEmpWage();
+		System.out.println(dMart);
+		relience.computeEmpWage();
+		System.out.println(relience);
+
+	}
+
 }
