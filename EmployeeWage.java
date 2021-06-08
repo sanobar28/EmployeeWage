@@ -9,15 +9,15 @@
 
 package com;
 
+import java.util.*;
 
 interface EmpWageBuilder {
 	public void computeEmpWage(CompanyEmpWage obj);
 }
 
 /**
- * 
- * UC-11 implemented method to calculate company wage by passing
- *  object of CompanyEmpWage
+ * implemented method to calculate company wage by passing object of
+ * CompanyEmpWage
  *
  */
 
@@ -36,15 +36,12 @@ public class EmployeeWage implements EmpWageBuilder {
 			int empCheck = (int) ((Math.random() * 10) % 3);
 			switch (empCheck) {
 			case IS_PART_TIME:
-				// System.out.println("Employee is Present");
 				empHrs = 4;
 				break;
 			case IS_FULL_TIME:
-				// System.out.println("Employee is Present");
 				empHrs = 8;
 				break;
 			default:
-				// System.out.println("Employee is Absent");
 				empHrs = 0;
 			}
 			totalWorkingDays++;
@@ -54,9 +51,10 @@ public class EmployeeWage implements EmpWageBuilder {
 		System.out.println("Employee Monthly Wage of " + companyEmpWage.getCompanyName() + " is "
 				+ companyEmpWage.getTotalEmpWage());
 	}
-	
+
 	/**
-	 * main
+	 * main UC-12 arraylist is used to add and calculate wage for multiple companies
+	 * 
 	 * @param args
 	 */
 
@@ -64,14 +62,14 @@ public class EmployeeWage implements EmpWageBuilder {
 		System.out.println("WELCOME to EMPLOYEE WAGE Computation");
 		EmployeeWage emp = new EmployeeWage();
 		// Array of object of Companyempwage class
-		CompanyEmpWage[] company = new CompanyEmpWage[10];
+		ArrayList<CompanyEmpWage> company = new ArrayList<CompanyEmpWage>();
 		// assign value to object of Companyempwage
-		company[0] = new CompanyEmpWage("Dmart", 40, 20, 100);
-		emp.computeEmpWage(company[0]);
-		company[1] = new CompanyEmpWage("Relience", 30, 22, 120);
-		emp.computeEmpWage(company[1]);
-		company[2] = new CompanyEmpWage("BigBazar", 45, 18, 90);
-		emp.computeEmpWage(company[2]);
+		company.add(new CompanyEmpWage("Dmart", 40, 20, 100));
+		emp.computeEmpWage(company.get(0));
+		company.add(new CompanyEmpWage("Relience", 30, 22, 120));
+		emp.computeEmpWage(company.get(1));
+		company.add(new CompanyEmpWage("BigBazar", 45, 18, 90));
+		emp.computeEmpWage(company.get(2));
 	}
 }
 
