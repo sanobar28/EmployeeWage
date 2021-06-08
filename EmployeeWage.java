@@ -25,11 +25,19 @@ public class EmployeeWage implements EmpWageBuilder {
 	final int IS_PART_TIME = 1;
 	final int IS_FULL_TIME = 2;
 
+	/**
+	 * UC-13 to add daily employee wage for each company
+	 * 
+	 */
+
+	ArrayList<Integer> empDailyMonthlyTotalWage = new ArrayList<Integer>();
+
 	public void computeEmpWage(CompanyEmpWage companyEmpWage) {
 		int empHrs = 0;
 		int totalWorkingDays = 0;
 		int totalEmpHrs = 0;
 		int totalEmpWage = 0;
+		int empDailyWage = 0;
 		while (totalWorkingDays < companyEmpWage.getNumOfWorkingDays()
 				&& totalEmpHrs <= companyEmpWage.getMaxHoursPerMonth()) {
 
@@ -46,14 +54,19 @@ public class EmployeeWage implements EmpWageBuilder {
 			}
 			totalWorkingDays++;
 			totalEmpHrs = totalEmpHrs + empHrs;
+			empDailyWage = empHrs * companyEmpWage.getEmpRatePerHour();
+			empDailyMonthlyTotalWage.add(empDailyWage);
+			System.out.println("Day:" + totalWorkingDays + " Wage is : " + empDailyWage);
 		}
-		companyEmpWage.setTotalEmpWage(totalEmpHrs * companyEmpWage.empRatePerHour);
+		totalEmpWage = (totalEmpHrs * companyEmpWage.getEmpRatePerHour());
+		empDailyMonthlyTotalWage.add(totalEmpWage);
+		companyEmpWage.setTotalEmpWage(totalEmpWage);
 		System.out.println("Employee Monthly Wage of " + companyEmpWage.getCompanyName() + " is "
 				+ companyEmpWage.getTotalEmpWage());
 	}
 
 	/**
-	 * main UC-12 arraylist is used to add and calculate wage for multiple companies
+	 * main arraylist is used to add and calculate wage for multiple companies
 	 * 
 	 * @param args
 	 */
